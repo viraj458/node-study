@@ -4,16 +4,22 @@ const fs = require('fs')
 const server = http.createServer((req, res) => {
     console.log(req.url, req.method);
 
-    // //set header content type
-    res.setHeader('Content-Type', 'text/html');
 
-    // res.write('<p>Hello</p>');
-    // res.write('<p>hello hello</p>')
+    let path = './view/'
+    switch(req.url){
+        case '/':
+            path += 'index.html'
+            break;
+        case '/about':
+            path += 'about.html'
+            break;
+        default:
+            path += '404.html'
+            break;
 
-    // res.end()
-
-    //send html file
-    fs.readFile('./view/index.html', (err, data) => {
+    }
+    
+    fs.readFile(path, (err, data) => {
         if(err){
             console.log(err);
             res.end();
